@@ -33,8 +33,8 @@ app.post("/create-checkout-session", async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: "/success.html?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "/cancel.html",
+      success_url: "http://stripe-production-bb55.up.railway.app/success.html?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: "http://stripe-production-bb55.up.railway.app/cancel.html",
       subscription_data: {
       },
     });
