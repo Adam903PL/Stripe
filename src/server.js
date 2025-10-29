@@ -33,8 +33,8 @@ app.post("/create-checkout-session", async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: "http://localhost:4000/success.html?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "http://localhost:4000/cancel.html",
+      success_url: "/success.html?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: "/cancel.html",
       subscription_data: {
       },
     });
