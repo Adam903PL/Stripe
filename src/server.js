@@ -18,32 +18,25 @@ if (!stripeSecretKey) {
 const stripe = new Stripe(stripeSecretKey);
 
 app.use(bodyParser.json());
-app.use(express.static("public")); // serve static assets, including success and cancel pages
-
-// Tworzenie sesji Stripe
+app.use(express.static("public")); 
 app.post("/create-checkout-session", async (req, res) => {
   try {
-    const { priceId } = req.body;
-    console.log("📦 priceId:", priceId);
-
+    const { priceId } = req.body; 
     const session = await stripe.checkout.sessions.create({
-      mode: "subscription",
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      success_url: `http://${URL}/order/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `http://${URL}/cancel.html`,
+      mode: "payment",
+      line_items: [{ price: priceId, quantity: 1 }],
+      customer_creation: "always", 
+      success_url: `${URL}/order/success.html?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${URL}/cancel.html`,
     });
-
     res.json({ url: session.url });
   } catch (err) {
     console.error("❌ Error creating checkout session:", err.message);
     res.status(500).json({ error: err.message });
   }
 });
+
+
 
 // Returns customer details for success.html
 app.get("/order/success", async (req, res) => {
