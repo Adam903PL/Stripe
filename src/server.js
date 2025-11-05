@@ -38,7 +38,6 @@ app.post("/create-checkout-session", async (req, res) => {
 
 
 
-// Returns customer details for success.html
 app.get("/order/success", async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
@@ -56,3 +55,6 @@ app.get("/order/success", async (req, res) => {
 
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 
+
+
+app.get('/')
